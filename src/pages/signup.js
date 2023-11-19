@@ -1,55 +1,68 @@
-import React, { useEffect, useState } from 'react';
-const Signup = () => {
-    const [formData, setFormData] = useState({
-      username: '',
-      email: '',
-      password: '',
-    });
-  
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
+const Signup = () => {
+  const router = useRouter(); // Get the router object
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+   
+
+    try {
+        const response = await fetch('https://kcf-onlineshop.onrender.com/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+            role: 'admin',
+          }),
+        });
     
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        try {
-        //   const response = await fetch('https://kcf-onlineshop.onrender.com/auth/signup', {
-          const response = await fetch('http://localhost:8000/auth/signup', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              username: formData.username,
-              email: formData.email,
-              password: formData.password,
-              role: 'admin', // Assuming the role is 'admin' for this example
-            }),
-          });
-    
-          if (!response.ok) {
-            throw new Error('Failed to sign up');
-          }
-    
+        if (!response.ok) {
+          // Handle unsuccessful signup
+        //   alert('Failed to sign up "Existing Email"');
+        alert('Email already exists. Please use a different email.');
+
+        } else {
+          // Successful signup
+          alert('Successfully signed up');
           // Clear the form after successful signup
           setFormData({
             username: '',
             email: '',
             password: '',
           });
-              // Redirect to the login page
-    history.push('/login');
-
-          // You may want to handle the success response here (e.g., show a success message or redirect to login)
-        } catch (error) {
-          console.error('Error signing up:', error.message);
-          // You may want to handle the error here (e.g., show an error message)
+          // Redirect to the login page using the router object
+          router.push('/login');
         }
-      };
+      } catch (error) {
+        console.error('Error signing up:', error.message);
+        // Show an alert if the error is related to an existing email
+        if (error.message.toLowerCase().includes('email')) {
+          alert('Email already exists. Please use a different email.');
+        }
+        // You may want to handle other types of errors here
+      }
+    };
+
+  return (
   
-    return (
+
+    
       <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-800">
         <div className="bg-white dark:bg-gray-700 p-8 rounded-md shadow-md w-96">
           <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
@@ -103,6 +116,7 @@ const Signup = () => {
           </form>
         </div>
       </div>
-    );
-  };
-  export default Signup;
+  );
+};
+
+export default Signup;

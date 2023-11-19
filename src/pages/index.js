@@ -18,13 +18,13 @@ const Home = () => {
       <section className="mt-12 grid gap-8 lg:grid-cols-3">
         {/* Feature 1 */}
         <div className="text-center">
-          <Image
+          {/* <Image
             src="/feature1.svg"
             alt="Feature 1"
             width={100}
             height={100}
             className="mb-4"
-          />
+          /> */}
           <h2 className="text-xl font-semibold mb-2">Create an Account</h2>
           <p className="text-gray-600 dark:text-gray-400">
             Easily create an account to access exclusive features.
@@ -33,13 +33,13 @@ const Home = () => {
 
         {/* Feature 2 */}
         <div className="text-center">
-          <Image
+          {/* <Image
             src="/feature2.svg"
             alt="Feature 2"
             width={100}
             height={100}
             className="mb-4"
-          />
+          /> */}
           <h2 className="text-xl font-semibold mb-2">Explore Products</h2>
           <p className="text-gray-600 dark:text-gray-400">
             Browse through a diverse range of products with detailed information.
@@ -48,13 +48,13 @@ const Home = () => {
 
         {/* Feature 3 */}
         <div className="text-center">
-          <Image
+          {/* <Image
             src="/feature3.svg"
             alt="Feature 3"
             width={100}
             height={100}
             className="mb-4"
-          />
+          /> */}
           <h2 className="text-xl font-semibold mb-2">Easy Shopping Cart</h2>
           <p className="text-gray-600 dark:text-gray-400">
             Effortlessly manage your shopping cart and orders.
@@ -73,6 +73,17 @@ const Home = () => {
         >
           Sign Up Now
         </a>
+        <br />
+        <p>
+          Already have an account?{' '}
+          <a
+            href="/login"  // Update with your login page route
+            className="text-blue-500 hover:underline transition"
+          >
+            Log In
+          </a>
+        </p>
+        
       </section>
     </main>
   );
