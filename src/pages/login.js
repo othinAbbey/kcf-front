@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+
 
 const Login = () => {
+    const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -10,9 +13,9 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch('https://kcf-onlineshop.onrender.com/auth/login', {
         method: 'POST',
@@ -24,18 +27,27 @@ const Login = () => {
           password: formData.password,
         }),
       });
-
+  
+      // Read the response body
+      const responseBody = await response.text();
+  
+      console.log('Response Status:', response.status);
+      console.log('Response Text:', responseBody);
+  
       if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Failed to log in: ${errorMessage}`);
+        alert(`Failed to log in: ${responseBody}`);
+        // throw new Error(`Failed to log in: ${responseBody}`);
+      } else {
+        alert('Successfully logged in');
+        router.push('/products');
       }
-
+  
       // Clear the form after successful login
       setFormData({
         email: '',
         password: '',
       });
-
+  
       // You may want to handle the success response here
       // (e.g., store the token or redirect to a different page)
     } catch (error) {
@@ -43,7 +55,7 @@ const Login = () => {
       // You may want to handle the error here (e.g., show an error message to the user)
     }
   };
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-md shadow-md w-full max-w-md">
