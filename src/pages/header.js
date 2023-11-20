@@ -11,7 +11,9 @@ const Header = ({ user, onLogout }) => {
   return (
     <header className="bg-gray-800 p-4 text-white flex justify-between items-center">
       <div>
+        <Link href="/products">
         <button className="text-white font-bold">Home</button>
+        </Link>
       </div>
       <div className="flex items-center space-x-4">
         <Link href="/products">
