@@ -172,7 +172,8 @@ const Products = () => {
             <span className="close" onClick={handleModalClose}>
               &times;
             </span>
-            <h2>{selectedProduct.name}</h2>
+            <h2 className="text-3xl mb-4">{selectedProduct.name} Details</h2>
+            {/* <h2>{selectedProduct.name}</h2> */}
             <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-auto mb-4 rounded" />
             <p>Description: {selectedProduct.description}</p>
             <p>Price: ${selectedProduct.price}</p>
