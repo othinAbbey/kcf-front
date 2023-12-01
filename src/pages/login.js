@@ -1,9 +1,13 @@
+
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-
+import { useAuth } from "./authContext" 
 
 const Login = () => {
-    const router = useRouter();
+  const router = useRouter();
+  const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -13,9 +17,9 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch('https://kcf-onlineshop.onrender.com/auth/login', {
         method: 'POST',
@@ -27,36 +31,28 @@ const handleSubmit = async (e) => {
           password: formData.password,
         }),
       });
-  
-      // Read the response body
+
       const responseBody = await response.text();
-  
-      console.log('Response Status:', response.status);
-      console.log('Response Text:', responseBody);
-  
+
       if (!response.ok) {
         alert(`Failed to log in: ${responseBody}`);
-        // throw new Error(`Failed to log in: ${responseBody}`);
       } else {
         alert('Successfully logged in');
+        login(/* Pass user data here if needed */);
         router.push('/products');
       }
-  
-      // Clear the form after successful login
+
       setFormData({
         email: '',
         password: '',
       });
-  
-      // You may want to handle the success response here
-      // (e.g., store the token or redirect to a different page)
     } catch (error) {
       console.error('Error logging in:', error.message);
-      // You may want to handle the error here (e.g., show an error message to the user)
     }
   };
-  
+
   return (
+   
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-md shadow-md w-full max-w-md">
         <h2 className="text-3xl font-bold mb-8 text-center">Login</h2>
@@ -101,3 +97,4 @@ const handleSubmit = async (e) => {
 };
 
 export default Login;
+
