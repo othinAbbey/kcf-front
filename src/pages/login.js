@@ -21,7 +21,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://kcf-onlineshop.onrender.com/auth/login', {
+      // const response = await fetch('https://kcf-onlineshop.onrender.com/auth/login', {
+      const response = await fetch('http://localhost:8000/auth/login', {
+        
+        
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +38,7 @@ const Login = () => {
       const responseBody = await response.text();
 
       if (!response.ok) {
-        alert(`Failed to log in: ${responseBody}`);
+        alert(`Failed to log in due to : ${responseBody}`);
       } else {
         alert('Successfully logged in');
         login(/* Pass user data here if needed */);
