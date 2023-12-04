@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from "./authContext" 
+import { useAuth } from "../authContext" 
 
 const Login = () => {
   const router = useRouter();

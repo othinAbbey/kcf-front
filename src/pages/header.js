@@ -49,8 +49,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { AuthProvider } from './authContext';
-import { useAuth } from "./authContext";
+import { AuthProvider } from '../authContext';
+import { useAuth } from "../authContext";
 
 const Header = () => {
   const auth = useAuth();
